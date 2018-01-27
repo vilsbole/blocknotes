@@ -28,3 +28,6 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+For information on authors experience of switching to vuejs see [guide](https://mijoco.atlassian.net/wiki/spaces/WIK/blog/create?draftId=20021249&draftShareId=c990e56e-1ecb-4aec-b670-eca6fb0f5ce5&).
+
