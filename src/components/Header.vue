@@ -8,9 +8,7 @@
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href=""><router-link to="/home">Home</router-link></a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href=""><router-link to="/contact">Contact</router-link></a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href=""><router-link to="/about">About</router-link></a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#api/articles">Posts</a></li>
                 <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Explore <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -27,10 +25,10 @@
 
 <script>
 export default {
-  name: 'Navbar',
+  name: 'Header',
   data () {
     return {
-      msg: 'Welcome to Your Navbar App'
+      message: 'Building Decentralised Applications'
     }
   }
 }

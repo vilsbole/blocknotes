@@ -1,17 +1,23 @@
 <template>
 <div id="app">
-    <navbar></navbar>
-    <img src="./assets/logo.png">
-    <router-view />
+    <Header></Header>
+    <Navbar></Navbar>
+    <!--     <img src="./assets/logo.png"> -->
+    <BrightBloc></BrightBloc>
+    <Contact></Contact>
 </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar'
+import Header from './components/Header'
+import BrightBloc from './components/BrightBloc'
+import Contact from './components/Contact'
+
 export default {
   name: 'App',
   components: {
-    Navbar
+    Navbar, Header, BrightBloc, Contact
   }
 }
 </script>
