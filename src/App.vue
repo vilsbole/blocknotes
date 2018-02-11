@@ -1,23 +1,17 @@
 <template>
 <div id="app">
-    <Header></Header>
-    <Navbar></Navbar>
-    <!--     <img src="./assets/logo.png"> -->
-    <BrightBloc></BrightBloc>
-    <Contact></Contact>
+    <navbar></navbar>
+    <router-view></router-view>
 </div>
 </template>
 
 <script>
-import Navbar from './components/Navbar'
-import Header from './components/Header'
-import BrightBloc from './components/BrightBloc'
-import Contact from './components/Contact'
+import Navbar from '@/components/Navbar'
 
 export default {
   name: 'App',
   components: {
-    Navbar, Header, BrightBloc, Contact
+    Navbar
   }
 }
 </script>
@@ -27,7 +21,7 @@ export default {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
+    text-align: left;
     color: #2c3e50;
     margin-top: 60px;
 }

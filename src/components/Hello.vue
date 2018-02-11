@@ -1,19 +1,15 @@
 <template>
-<div class="about">
-  <h1>What is a Crypto-Currency?</h1>
-  <p>
-    It's a digital currency in which encryption techniques are used to regulate the generation of units of currency
-    and verify the transfer of funds, operating independently of a central bank.
-  </p>
-</div>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'About',
+  name: 'Hello',
   data () {
     return {
-      msg: 'About to Crypto Info'
+      msg: 'Welcome to Crypto Info'
     }
   }
 }
