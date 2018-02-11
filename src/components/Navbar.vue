@@ -19,12 +19,7 @@
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/#api/storage">storage</a></li>
           </ul>
         </li>
-        <template v-if="loggedIn">
-            <li class="nav-item dropdown"><a v-on:click="logout">Welcome</a></li>
-        </template>
-        <template v-else>
-            <li class="nav-item dropdown"><a v-on:click="login">Login</a></li>
-        </template>
+        <auth></auth>
       </ul>
     </div>
   </div>
@@ -37,28 +32,7 @@ export default {
   name: 'Navbar',
   data () {
     return {
-      msg: 'Welcome to Your Navbar App',
-      loggedIn: false
-    }
-  },
-  methods: {
-    login: function (event) {
-      // `this` inside methods points to the Vue instance
-      alert('Login ' + this.msg + '!')
-      this.loggedIn = true
-      // `event` is the native DOM event
-      if (event) {
-        alert(event.target.tagName)
-      }
-    },
-    logout: function (event) {
-      // `this` inside methods points to the Vue instance
-      alert('Logout ' + this.msg + '!')
-      this.loggedIn = false
-      // `event` is the native DOM event
-      if (event) {
-        alert(event.target.tagName)
-      }
+      msg: 'Welcome to Your Navbar App'
     }
   },
   components: {
