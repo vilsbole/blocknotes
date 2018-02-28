@@ -1,9 +1,9 @@
 {
   "name": "Brighton Blockchain",
-  "start_url": "local.brightblock.org",
+  "start_url": "local.brightbloc.org",
   "description": "Sign in to britghblock.org with you're own identity and credentials",
   "icons": [{
-    "src": "http://local.brightblock.org/img/dapps/blocks.jpg",
+    "src": "http://local.brightbloc.org/img/dapps/blocks.jpg",
     "sizes": "192x192",
     "type": "image/png"
   }]
