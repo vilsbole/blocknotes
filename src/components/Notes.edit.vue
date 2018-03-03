@@ -1,5 +1,5 @@
 <template>
-  <div class="notes-list-container">
+  <div class="notes-list-container content">
     {{ msg }}
     {{ notesId }}
   </div>
@@ -22,7 +22,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .notes-list-container {
-    background-color: yellow;
+  .content{
+    padding: 20px;
+    height: 100%;
+    background-color: #fff;
   }
 </style>
