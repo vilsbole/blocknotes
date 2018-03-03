@@ -11,8 +11,9 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/notes',
       name: 'home',
+      meta: { requiresAuth: true },
       component: Home,
       children: [
         {
@@ -32,7 +33,7 @@ export default new Router({
         }
       ]
     }, {
-      path: '/register',
+      path: '/',
       name: 'register',
       component: Register,
     }
