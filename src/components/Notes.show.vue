@@ -1,7 +1,9 @@
 <template>
-  <div class="notes-list-container">
-    {{ msg }}
-    {{ notesId }}
+  <div class="bd-callout">
+    <p>
+      {{ msg }}
+      {{ notesId }}
+    </p>
   </div>
 </template>
 
@@ -12,7 +14,7 @@ export default {
   props: [ 'notesId' ],
   data () {
     return {
-      msg: 'Notes Show'
+      msg: get(notesId)
     }
   },
   components: {
@@ -24,5 +26,10 @@ export default {
 <style scoped>
   .notes-list-container {
     background-color: green;
+  }
+  p{
+    padding: 20px;
+    height: 100%;
+    background-color: #fff;
   }
 </style>

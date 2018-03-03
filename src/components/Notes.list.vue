@@ -1,19 +1,23 @@
 <template>
   <div class="notes-list-container">
-    <div class="preview-container">
+    <div class="preview-container list-group">
       <router-link
         :to="`/notes/${note.id}`"
         v-for="note in notes"
         :key="note.id"
-        tag="div">
-        {{note.id}}
-        <h5>{{note.title}}</h5>
-        <p>{{note.content}}</p>
+        tag="a"
+        href="#"
+        class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{note.title}} <small>{{note.id}}</small></h5>
+          </div>
+          <!-- <p class="mb-1">{{note.content}}</p> -->
       </router-link>
     </div>
     <div class="footer">
       <router-link
       class="btn btn-default"
+      id="create-button"
       to="/notes/create"
       tag="button">
       Create
@@ -32,7 +36,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .notes-list-container {
-    background-color: purple;
+  #create-button{
+    width: 100%;
+  }
+  .list-group-item{
+    height: 100px;
   }
 </style>
