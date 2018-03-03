@@ -1,10 +1,23 @@
 <template>
   <div class="notes-list-container">
-    {{ msg }}
-    <pre>
-      {{notes}}
-    </pre>
-    <button class="btn btn-default" type="submit">Button</button>
+    <div class="preview-container">
+      <router-link
+        :to="`/notes/${note.id}`"
+        v-for="note in notes"
+        tag="div">
+        {{note.id}}
+        <h5>{{note.title}}</h5>
+        <p>{{note.content}}</p>
+      </router-link>
+    </div>
+    <div class="footer">
+      <router-link
+      class="btn btn-default"
+      to="/notes/create"
+      tag="button">
+      Create
+    </router-link>
+    </div>
   </div>
 </template>
 
@@ -13,13 +26,6 @@
 export default {
   name: 'NotesList',
   props: ['notes'],
-  data () {
-    return {
-      msg: 'Notes list'
-    }
-  },
-  components: {
-  }
 }
 </script>
 
