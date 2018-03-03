@@ -24,8 +24,14 @@ const NotesService = {
     return _.find(NOTES, {'id': id})
   },
 
-  create: () => {
-
+  create: (content) => {
+    var id = _.last(NOTES).id + 1
+    var note = {
+      'id': id,
+      'title': 'New Note',
+      'content': content
+    }
+    _.concat(NOTES, note)
   },
 
   update: () => {
