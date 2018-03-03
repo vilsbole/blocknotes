@@ -2,16 +2,19 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '../components/Home.vue'
+import Register from '../components/Register.vue'
 import NotesEdit from '../components/Notes.edit'
 import NotesShow from '../components/Notes.show'
+import store from '../services/store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
-      path: '/',
-      name: 'Home',
+      path: '/notes',
+      name: 'home',
+      meta: { requiresAuth: true },
       component: Home,
       children: [
         {
@@ -30,6 +33,23 @@ export default new Router({
           props: true
         }
       ]
+    }, {
+      path: '/',
+      name: 'register',
+      component: Register,
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (store.auth.isSignedIn()) {
+    store.auth.loadUserData()
+    next()
+  } else if (store.auth.isSignInPending()) {
+    next()
+  } else {
+    next()
+  }
+})
+
+export default router

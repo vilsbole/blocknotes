@@ -16,12 +16,12 @@
     </div>
     <div class="footer">
       <router-link
-      class="btn btn-default"
-      id="create-button"
-      to="/notes/create"
-      tag="button">
-      Create
-    </router-link>
+        class="btn btn-default"
+        id="create-button"
+        to="/notes/create"
+        tag="button">
+        Create
+      </router-link>
     </div>
   </div>
 </template>

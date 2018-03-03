@@ -27,6 +27,8 @@ export default {
 <style scoped>
 .home-container {
   display: flex;
+  flex: 1;
+  flex-direction: row;
 }
 .sidebar {
   flex: 1;
