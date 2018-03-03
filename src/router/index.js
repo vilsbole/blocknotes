@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '../components/Home.vue'
+import Register from '../components/Register.vue'
 import NotesEdit from '../components/Notes.edit'
 import NotesShow from '../components/Notes.show'
 
@@ -11,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
       component: Home,
       children: [
         {
@@ -30,6 +31,10 @@ export default new Router({
           props: true
         }
       ]
+    }, {
+      path: '/register',
+      name: 'register',
+      component: Register,
     }
   ]
 })
