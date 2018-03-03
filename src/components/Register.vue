@@ -1,7 +1,6 @@
 <template>
   <div class="register-container">
     <div class="centered-content">
-
       <div
         @click="signIn"
         class="btn btn-primary btn-lg">

@@ -17,4 +17,13 @@ export default {
 </script>
 
 <style>
+html, body, #app {
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
 </style>
