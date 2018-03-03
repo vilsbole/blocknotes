@@ -1,33 +1,35 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Hello from '@/components/Hello'
-import About from '@/components/About'
-import Coins from '@/components/Coins'
+
+import Home from '../components/Home.vue'
+import NotesEdit from '../components/Notes.edit'
+import NotesShow from '../components/Notes.show'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/hw',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
       path: '/',
-      name: 'Hello',
-      component: Hello
-    },
-    {
-      path: '/about',
-      name: 'About',
-      component: About
-    },
-    {
-      path: '/coins/:id',
-      name: 'Coins',
-      component: Coins
+      name: 'Home',
+      component: Home,
+      children: [
+        {
+          path: '/notes/create',
+          component: NotesEdit
+        },
+        {
+          path: '/notes/:notesId',
+          component: NotesShow,
+          props: true
+
+        },
+        {
+          path: '/notes/:notesId/edit',
+          component: NotesEdit,
+          props: true
+        }
+      ]
     }
   ]
 })

@@ -1,16 +1,18 @@
 <template>
-  <nav class="navbar-container">
+  <div class="notes-list-container">
     {{ msg }}
-  </nav>
+    {{ notesId }}
+  </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Navbar',
+  name: 'NotesEdit',
+  props: [ 'notesId' ],
   data () {
     return {
-      msg: 'Welcome to Your Navbar App'
+      msg: 'Notes Edit'
     }
   },
   components: {
@@ -20,7 +22,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .navbar-container {
-    background-color: red;
+  .notes-list-container {
+    background-color: yellow;
   }
 </style>
