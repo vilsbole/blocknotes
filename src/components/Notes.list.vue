@@ -1,6 +1,7 @@
 <template>
   <div class="notes-list-container">
     {{ msg }}
+    <button class="btn btn-default" type="submit">Button</button>
   </div>
 </template>
 

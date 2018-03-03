@@ -16,7 +16,6 @@
   "dependencies": {
     "axios": "^0.17.1",
     "blockstack": "^0.15.1",
-    "bootstrap-vue": "^2.0.0-rc.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
