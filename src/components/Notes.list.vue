@@ -4,6 +4,7 @@
       <router-link
         :to="`/notes/${note.id}`"
         v-for="note in notes"
+        :key="note.id"
         tag="div">
         {{note.id}}
         <h5>{{note.title}}</h5>
