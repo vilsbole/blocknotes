@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import store from '@/services/store'
+import store from '@/services/store.service'
 
 export default {
   name: 'Register',
