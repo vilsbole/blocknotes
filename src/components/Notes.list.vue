@@ -1,6 +1,9 @@
 <template>
   <div class="notes-list-container">
     {{ msg }}
+    <pre>
+      {{notes}}
+    </pre>
     <button class="btn btn-default" type="submit">Button</button>
   </div>
 </template>
@@ -9,6 +12,7 @@
 
 export default {
   name: 'NotesList',
+  props: ['notes'],
   data () {
     return {
       msg: 'Notes list'

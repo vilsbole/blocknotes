@@ -1,12 +1,13 @@
 <template>
   <div class="home-container">
-    <notes-list class="sidebar"></notes-list>
+    <notes-list class="sidebar" :notes="notes"></notes-list>
     <router-view class="main"></router-view>
   </div>
 </template>
 
 <script>
 import NotesList from './Notes.list'
+import NoteService from '../services/notes.service'
 
 export default {
   name: 'Home',
@@ -15,7 +16,8 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Blockstack Notes'
+      msg: 'Welcome to Blockstack Notes',
+      notes: NoteService.get()
     }
   }
 }
