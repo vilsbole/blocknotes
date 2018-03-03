@@ -2,7 +2,12 @@
   <nav class="navbar-container navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">{{ msg }}</a>
     <div class="dropdown form-inline">
-      <button class="btn btn-primpary" type="button" id="logoutButton">
+      <span>{{ name() }}</span>
+      <button
+        v-on:click="signout"
+        class="btn btn-primpary"
+        type="button"
+        id="logoutButton">
         Logout
       </button>
     </div>
@@ -10,6 +15,7 @@
 </template>
 
 <script>
+import store from '../services/store'
 
 export default {
   name: 'Navbar',
@@ -17,6 +23,18 @@ export default {
     return {
       msg: 'Welcome to Your Navbar App',
       username: 'username'
+    }
+  },
+  methods: {
+    name: function () {
+      if (store.auth.isSignedIn()) {
+        return store.auth.person.name()
+      } else {
+        return ''
+      }
+    },
+    signout: function (event) {
+      return store.auth.signout()
     }
   },
   components: {
