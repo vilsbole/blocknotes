@@ -14,7 +14,7 @@ export default {
   props: [ 'notesId' ],
   data () {
     return {
-      msg: get(notesId)
+      msg: 'Hello' //get(notesId)
     }
   },
   components: {
