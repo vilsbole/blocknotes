@@ -4,10 +4,11 @@ import Router from 'vue-router'
 import Home from '../components/Home.vue'
 import NotesEdit from '../components/Notes.edit'
 import NotesShow from '../components/Notes.show'
+import store from '../services/store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -33,3 +34,16 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (store.auth.isSignedIn()) {
+    store.auth.loadUserData()
+    next()
+  } else if (store.auth.isSignInPending()) {
+    next()
+  } else {
+    next()
+  }
+})
+
+export default router
