@@ -1,7 +1,16 @@
 <template>
-  <div class="content">
-    <h3> {{ msg.title }}</h3>
-    <div v-html="msg.content">
+  <div class="note-container">
+    <div class="header content">
+      <h3 class="float-left"> {{ msg.title }}</h3>
+      <router-link :to="`/notes/${notesId}/edit`"
+        class="btn btn-outline-secondary float-right">
+        Edit
+      </router-link>
+      </button>
+    </div>
+    <div class="content">
+      <div v-html="msg.content">
+      </div>
     </div>
   </div>
 
@@ -23,12 +32,9 @@ export default {
       this.msg = NoteService.get(newVal)
     }
   },
-  components: {
-  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .notes-list-container {
     background-color: green;
@@ -37,5 +43,9 @@ export default {
     padding: 20px;
     height: 100%;
     background-color: #fff;
+  }
+  .header {
+    margin: 0.5em 0;
+    height: 3em;
   }
 </style>
