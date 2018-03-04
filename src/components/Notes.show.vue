@@ -1,12 +1,11 @@
 <template>
-  <div class="note-container">
+  <div class="notes-list-container">
     <div class="header content">
       <h3 class="float-left"> {{ msg.title }}</h3>
       <router-link :to="`/notes/${notesId}/edit`"
-        class="btn btn-outline-secondary float-right">
+        class="btn btn-outline-secondary right">
         Edit
       </router-link>
-      </button>
     </div>
     <div class="content">
       <div v-html="msg.content">
@@ -37,7 +36,7 @@ export default {
 
 <style scoped>
   .notes-list-container {
-    background-color: green;
+    position: relative;
   }
   .content{
     padding: 20px;
@@ -47,5 +46,10 @@ export default {
   .header {
     margin: 0.5em 0;
     height: 3em;
+  }
+  .right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
   }
 </style>

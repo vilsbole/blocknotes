@@ -22,7 +22,6 @@ import store from '../services/store.service'
 export default {
   name: 'Navbar',
   data: () => {
-    console.log('name', store.auth.person.name(), store)
     return {
       username: store.auth.person.name() || 'Anon'
     }

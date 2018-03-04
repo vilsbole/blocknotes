@@ -7,7 +7,6 @@ const store = {
       var profile = userData.profile
       var person = new blockstack.Person(profile)
       this.person = person
-      console.log(this.person, this)
     },
     isSignInPending: function () {
       blockstack.handlePendingSignIn().then(function (userData) {
