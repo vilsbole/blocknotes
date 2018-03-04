@@ -1,3 +1,4 @@
+/* eslint-disable */
 //
 //////////////////////
 // PLEASE TAKE NOTE:
@@ -9,6 +10,7 @@
 // design your Blockstack driver.
 //
 
+/* eslint-disable */
 import * as blockstack from "blockstack";
 
 function defaultReplacer(key) {

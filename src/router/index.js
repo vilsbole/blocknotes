@@ -47,7 +47,6 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (store.auth.isSignedIn()) {
     store.auth.loadUserData()
-    
     next()
   } else if (store.auth.isSignInPending()) {
     next()

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import shortid from "shortid";
 import moment from "moment";
 
@@ -123,12 +125,12 @@ export default class MultiFileCollectionService {
   async getUserData(apps,type){
     console.log("apps",apps,type)
     return await Promise.all(apps.map(url => {
-      console.log("url",url,this.getItemPath(type));  
+      console.log("url",url,this.getItemPath(type));
 
       let p = url+this.getItemPath(type)
-      console.log("p");  
+      console.log("p");
     })).then((res)=>{
       console.log('res',res)
-    }).catch(console.log) 
+    }).catch(console.log)
   }
 }

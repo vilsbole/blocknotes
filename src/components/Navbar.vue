@@ -23,7 +23,7 @@ export default {
   name: 'Navbar',
   data: () => {
     return {
-      username: store.auth.person.name() || 'Anon'
+      username: 'Anon' // store.auth.person.name() || 'Anon'
     }
   },
   methods: {

@@ -4,9 +4,13 @@
       <div class="header">
         <span class="title">
           <h3>
-            <editable :content.sync="title"></editable>
+            <editable
+              @editing="updateModel"
+              :content="title"
+              name="title">
+            </editable>
             <button
-              @click="saveContent({title, desc, content})"
+              @click="saveContent(changed)"
               class="btn btn-outline-secondary right">
               Save
             </button>
@@ -17,10 +21,16 @@
         </span>
       </div>
       <div class="desc">
-        <editable :content.sync="desc"></editable>
+        <editable :content="desc"
+         @editing="updateModel"
+         name="desc">
+       </editable>
       </div>
       <div class="">
-        <editable :content.sync="content"></editable>
+        <editable :content="content"
+         @editing="updateModel"
+         name="content">
+       </editable>
       </div>
     </div>
    </div>
@@ -40,6 +50,7 @@ export default {
       title: note.title || 'Title',
       desc: note.desc || 'Enter your description',
       content: note.content || 'Write your note',
+      changed: {}
     }
   },
   components: {
@@ -48,7 +59,11 @@ export default {
   methods: {
     saveContent: (note) => {
       // You have the content to save
+      console.log(note)
       NoteService.create(note)
+    },
+    updateModel: function (params) {
+      this.$data.changed[params.name] = params.value
     }
   }
 }
