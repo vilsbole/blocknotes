@@ -1,7 +1,7 @@
 {
-  "name": "Brighton Blockchain",
-  "start_url": "http://localhost:8080/#/",
-  "description": "Sign in to britghblock.org with you're own identity and credentials",
+  "name": "Blocknotes",
+  "start_url": "https://blockstack.netlify.com",
+  "description": "Best Dapp note",
   "icons": [{
     "src": "http://localhost:8080/img/dapps/blocks.jpg",
     "sizes": "192x192",
