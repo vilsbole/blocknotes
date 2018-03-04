@@ -4,8 +4,8 @@
       Blocknotes
     </router-link>
     <div class="dropdown form-inline">
-      <span>{{ username }}</span>
       <button
+        v-if="showLogout()"
         v-on:click="signout"
         class="btn btn-link"
         type="button"
@@ -29,6 +29,10 @@ export default {
   methods: {
     signout: function (event) {
       return store.auth.signout()
+    },
+    showLogout: function (event) {
+      if (window.location.href.search('auth') > 0) return false
+      return true
     }
   },
   components: {
