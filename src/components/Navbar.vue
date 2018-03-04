@@ -21,7 +21,7 @@ export default {
   name: 'Navbar',
   data () {
     return {
-      msg: 'Welcome to Blockstack Notes',
+      msg: 'Blocknotes',
       username: 'username'
     }
   },

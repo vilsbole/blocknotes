@@ -1,7 +1,16 @@
 <template>
-   <div class="content">
-     <vue-editor v-model="content"></vue-editor>
-     <button @click="saveContent" class="btn"> Save </button>
+   <div class="note-container">
+     <vue-editor
+      class="editor"
+      v-model="content">
+    </vue-editor>
+    <div class="save">
+      <button
+        @click="saveContent"
+        class="btn btn-outline-secondary">
+        Save
+      </button>
+    </div>
    </div>
  </template>
 
@@ -31,8 +40,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .content{
+  .note-container{
     height: 100%;
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
   }
+  .editor {
+    flex: 1;
+  }
+  .save {
+    margin: 1.5em 1em;
+  }
+
 </style>
