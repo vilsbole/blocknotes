@@ -19,6 +19,8 @@ export default {
 <style>
 html, body, #app {
   height: 100%;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 14px;
 }
 
 #app {

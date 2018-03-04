@@ -36,7 +36,6 @@ export default {
 
 <style>
 .register-container {
-  font-family: 'Source Code Pro', monospace;
   background-color: #E91E63;
   color: #fff;
 

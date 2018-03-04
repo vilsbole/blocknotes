@@ -1,11 +1,13 @@
 <template>
   <nav class="navbar-container navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">{{ msg }}</a>
+    <router-link class="navbar-brand brand" to="/">
+      Blocknotes
+    </router-link>
     <div class="dropdown form-inline">
-      <span>{{ name() }}</span>
+      <span>{{ username }}</span>
       <button
         v-on:click="signout"
-        class="btn btn-primpary"
+        class="btn btn-link"
         type="button"
         id="logoutButton">
         Logout
@@ -19,20 +21,13 @@ import store from '../services/store.service'
 
 export default {
   name: 'Navbar',
-  data () {
+  data: () => {
+    console.log('name', store.auth.person.name(), store)
     return {
-      msg: 'Blocknotes',
-      username: 'username'
+      username: store.auth.person.name() || 'Anon'
     }
   },
   methods: {
-    name: function () {
-      if (store.auth.isSignedIn()) {
-        return store.auth.person.name()
-      } else {
-        return ''
-      }
-    },
     signout: function (event) {
       return store.auth.signout()
     }
@@ -44,4 +39,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.navbar-container {
+  background-color: #E91E63 !important;
+}
+.brand {
+  color: #fff !important;
+}
 </style>

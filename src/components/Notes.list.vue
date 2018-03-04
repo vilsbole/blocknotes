@@ -13,7 +13,7 @@
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1 text-truncate">{{ note.title }}</h5>
           </div>
-          <p class="mb-1">{{ note.desc | truncate }}</p>
+          <p class="mb-1 note-preview">{{ note.desc | truncate }}</p>
       </router-link>
     </div>
     <div class="footer">
@@ -66,8 +66,7 @@ export default {
     left: 20%;
     width: 50%;
   }
-  .note-content {
-    overflow: hidden;
-
+  .note-preview {
+    margin-bottom: 0.5em;
   }
 </style>
