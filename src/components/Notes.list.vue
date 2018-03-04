@@ -11,9 +11,9 @@
         exact
         class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ note.title }}</h5>
+            <h5 class="mb-1 text-truncate">{{ note.title }}</h5>
           </div>
-          <p class="mb-1">{{ note.content | truncate }}</p>
+          <p class="mb-1">{{ note.desc | truncate }}</p>
       </router-link>
     </div>
     <div class="footer">
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 
 export default {
   name: 'NotesList',

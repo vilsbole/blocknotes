@@ -1,9 +1,8 @@
 <template>
   <div class="content">
     <h3> {{ msg.title }}</h3>
-    <p>
-      {{ msg.content }}
-    </p>
+    <div v-html="msg.content">
+    </div>
   </div>
 
 </template>

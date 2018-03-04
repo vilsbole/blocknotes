@@ -8,8 +8,8 @@ import _ from 'lodash'
 Vue.config.productionTip = false
 
 Vue.filter('truncate', function (value) {
-  return _.truncate(value, { length: 45, omission: '...'});
-});
+  return _.truncate(value, { length: 45, omission: '...' })
+})
 
 /* eslint-disable no-new */
 new Vue({
