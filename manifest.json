@@ -1,6 +1,6 @@
 {
   "name": "Blocknotes",
-  "start_url": "https://blockstack.netlify.com",
+  "start_url": "https://blocknotes.netlify.com",
   "description": "Best Dapp note",
   "icons": [{
     "src": "http://localhost:8080/img/dapps/blocks.jpg",
