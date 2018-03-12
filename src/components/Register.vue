@@ -47,7 +47,6 @@ export default {
 .centered-content {
   padding: 3em;
   width: 400px;
-  background-color: blue;
   display: flex;
   flex-direction: column;
   justify-content: center;

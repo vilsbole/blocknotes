@@ -24,7 +24,8 @@ const auth = {
     blockstack.signUserOut(defaultPath)
   },
   signIn: () => {
-    return blockstack.redirectToSignIn()
+    const redirectURI = `${window.location.origin}/notes/1`
+    return blockstack.redirectToSignIn(redirectURI)
   }
 }
 

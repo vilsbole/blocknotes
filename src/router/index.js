@@ -10,6 +10,7 @@ import Auth from '@/services/auth.service'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -51,12 +52,11 @@ router.beforeResolve((to, from, next) => {
       Auth.updateProfile(profile)
       next()
     } else if (Auth.isSignInPending()) {
-      debugger
       Auth.handlePending()
         .then(({ profile }) => { Auth.updateProfile(profile) })
         .then(next)
     } else {
-      next('/#/auth')
+      next('/auth')
     }
   } else {
     next()

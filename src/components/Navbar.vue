@@ -3,8 +3,8 @@
     <router-link class="navbar-brand brand" to="/">
       Blocknotes
     </router-link>
-    <div v-show="isAuth()" class="dropdown form-inline">
-      <span>{{ username }}</span>
+    <div v-show="isAuth" class="dropdown form-inline">
+      <span>{{ userName }}</span>
       <button
         @click="signOut"
         class="btn btn-link"
@@ -22,7 +22,8 @@ export default {
   name: 'Navbar',
   data: () => {
     return {
-      username: this.isAuth ? Auth.user.name() : ''
+      isAuth: Auth.isSignedIn(),
+      userName: this.isAuth ? Auth.user.name() : ''
     }
   },
   watch: {
@@ -30,7 +31,6 @@ export default {
   },
   methods: {
     signOut: Auth.signOut,
-    isAuth: Auth.isSignedIn
   },
 }
 </script>
