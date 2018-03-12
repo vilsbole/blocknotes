@@ -122,6 +122,10 @@ const webpackConfig = merge(baseWebpackConfig, {
       {
         from: path.resolve(__dirname, '../config', 'manifest.prod.json'),
         to: path.join(config.build.assetsRoot, 'manifest.json')
+      },
+      {
+        from: path.resolve(__dirname, '../config', '_headers.netlify.prod'),
+        to: path.join(config.build.assetsRoot, '_headers')
       }
     ])
   ]
