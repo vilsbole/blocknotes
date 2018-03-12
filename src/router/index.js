@@ -5,7 +5,7 @@ import Home from '../components/Home.vue'
 import Register from '../components/Register.vue'
 import NotesEdit from '../components/Notes.edit'
 import NotesShow from '../components/Notes.show'
-import store from '../services/store.service'
+import Auth from '@/services/auth.service'
 
 Vue.use(Router)
 
@@ -39,17 +39,25 @@ const router = new Router({
       component: Register,
     }, {
       path: '*',
-      redirect: '/auth'
+      redirect: '/'
     }
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  if (store.auth.isSignedIn()) {
-    store.auth.loadUserData()
-    next()
-  } else if (store.auth.isSignInPending()) {
-    next()
+router.beforeResolve((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    if (Auth.isSignedIn()) {
+      const profile = Auth.fetchProfile()
+      Auth.updateProfile(profile)
+      next()
+    } else if (Auth.isSignInPending()) {
+      debugger
+      Auth.handlePending()
+        .then(({ profile }) => { Auth.updateProfile(profile) })
+        .then(next)
+    } else {
+      next('/#/auth')
+    }
   } else {
     next()
   }

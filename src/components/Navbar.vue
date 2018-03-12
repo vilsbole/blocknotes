@@ -3,13 +3,12 @@
     <router-link class="navbar-brand brand" to="/">
       Blocknotes
     </router-link>
-    <div class="dropdown form-inline">
+    <div v-show="isAuth()" class="dropdown form-inline">
       <span>{{ username }}</span>
       <button
-        v-on:click="signout"
+        @click="signOut"
         class="btn btn-link"
-        type="button"
-        id="logoutButton">
+        type="button">
         Logout
       </button>
     </div>
@@ -17,26 +16,25 @@
 </template>
 
 <script>
-import store from '../services/store.service'
+import Auth from '@/services/auth.service'
 
 export default {
   name: 'Navbar',
   data: () => {
     return {
-      username: store.auth.person.name() || 'Anon'
+      username: this.isAuth ? Auth.user.name() : ''
     }
+  },
+  watch: {
+
   },
   methods: {
-    signout: function (event) {
-      return store.auth.signout()
-    }
+    signOut: Auth.signOut,
+    isAuth: Auth.isSignedIn
   },
-  components: {
-  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .navbar-container {
   background-color: #E91E63 !important;

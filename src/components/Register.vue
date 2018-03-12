@@ -19,14 +19,12 @@
 </template>
 
 <script>
-import store from '@/services/store.service'
+import Auth from '@/services/auth.service'
 
 export default {
   name: 'Register',
   methods: {
-    signIn: () => {
-      return store.auth.signin()
-    },
+    signIn: Auth.signIn,
     signUp: () => {
       console.log('sign up')
     }
