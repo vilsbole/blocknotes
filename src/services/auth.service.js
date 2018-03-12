@@ -25,7 +25,11 @@ const auth = {
   },
   signIn: () => {
     const redirectURI = `${window.location.origin}/notes/1`
-    return blockstack.redirectToSignIn(redirectURI)
+    const manifestURI = `${window.location.origin}/manifest.json`
+    return blockstack.redirectToSignIn(
+      redirectURI,
+      manifestURI,
+    )
   }
 }
 
