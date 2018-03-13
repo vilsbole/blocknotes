@@ -15,21 +15,23 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      meta: { requiresAuth: true },
       component: Home,
       children: [
         {
           path: '/notes/create',
-          component: NotesEdit
+          component: NotesEdit,
+          meta: { requiresAuth: true },
         },
         {
           path: '/notes/:notesId',
           component: NotesShow,
+          meta: { requiresAuth: true },
           props: true
 
         },
         {
           path: '/notes/:notesId/edit',
+          meta: { requiresAuth: true },
           component: NotesEdit,
           props: true
         }
@@ -48,12 +50,15 @@ const router = new Router({
 router.beforeResolve((to, from, next) => {
   if (to.meta.requiresAuth) {
     if (Auth.isSignedIn()) {
-      const profile = Auth.fetchProfile()
-      Auth.updateProfile(profile)
+      const user = Auth.fetchProfile()
+      Auth.updateProfile(user)
       next()
     } else if (Auth.isSignInPending()) {
       Auth.handlePending()
-        .then(({ profile }) => { Auth.updateProfile(profile) })
+        .then((userData) => {
+          console.log('handle pending', userData)
+          Auth.updateProfile(userData)
+        })
         .then(next)
     } else {
       next('/auth')

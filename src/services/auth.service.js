@@ -1,8 +1,15 @@
 import * as blockstack from 'blockstack'
 
+const USER = {}
+
 /* Bridge for blockstack api */
 const auth = {
-  user: {},
+  get username () {
+    return USER.username
+  },
+  set username (name) {
+    USER.username = name
+  },
   isSignedIn: () => {
     return blockstack.isUserSignedIn()
   },
@@ -13,18 +20,19 @@ const auth = {
     return blockstack.handlePendingSignIn()
   },
   updateProfile: (profile) => {
-    this.user = new blockstack.Person(profile)
+    const person = new blockstack.Person(profile)
+    auth.username = person._profile.username
   },
   fetchProfile: () => {
     return blockstack.loadUserData()
   },
   signOut: () => {
     const defaultPath = `${window.location.origin}/auth`
-    this.user = {}
+    auth.username = null
     blockstack.signUserOut(defaultPath)
   },
   signIn: () => {
-    const redirectURI = `${window.location.origin}/notes/1`
+    const redirectURI = `${window.location.origin}/notes/2`
     const manifestURI = `${window.location.origin}/manifest.json`
     return blockstack.redirectToSignIn(
       redirectURI,

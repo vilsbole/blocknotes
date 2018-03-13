@@ -1,17 +1,22 @@
 <template>
 <div id="app">
-    <navbar />
+    <navbar :user-name="userName" :is-auth="isAuth"/>
     <router-view></router-view>
 </div>
 </template>
 
 <script>
+import Auth from '@/services/auth.service'
 import Navbar from '@/components/Navbar'
 
 export default {
   name: 'App',
   components: {
     Navbar
+  },
+  computed: {
+    isAuth: Auth.isSignedIn,
+    userName () { return Auth.username }
   }
 }
 </script>

@@ -1,9 +1,9 @@
 <template>
-  <nav class="navbar-container navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar-container navbar navbar-light bg-light">
     <router-link class="navbar-brand brand" to="/">
       Blocknotes
     </router-link>
-    <div v-show="isAuth" class="dropdown form-inline">
+    <div v-show="isAuth" class="dropdown form-inline float-right">
       <span>{{ userName }}</span>
       <button
         @click="signOut"
@@ -20,15 +20,7 @@ import Auth from '@/services/auth.service'
 
 export default {
   name: 'Navbar',
-  data: () => {
-    return {
-      isAuth: Auth.isSignedIn(),
-      userName: this.isAuth ? Auth.user.name() : ''
-    }
-  },
-  watch: {
-
-  },
+  props: ['isAuth', 'userName'],
   methods: {
     signOut: Auth.signOut,
   },
