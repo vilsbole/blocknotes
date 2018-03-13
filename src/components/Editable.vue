@@ -1,27 +1,39 @@
 <template>
-  <div
-    contenteditable="true"
+  <input v-if="lines === 'single'"
     class="container"
-    @input="$emit('update:content', $event.target.innerText)">
-  </div>
+    :value="input"
+    @input="update"
+  />
+  <textarea v-else
+    class="container"
+    :value="input"
+    @input="update">
+  </textarea>
 </template>
 
 <script>
+import _debounce from 'lodash.debounce'
+
 export default {
   name: 'editable',
-  props: ['content'],
-  mounted: function () {
-    this.$el.innerText = this.content
-  },
-  watch: {
-    content: function () {
-      this.$el.innerText = this.content
+  props: ['content', 'lines'],
+  data () {
+    return {
+      input: this.content,
     }
+  },
+  methods: {
+    update: _debounce(function (e) {
+      this.input = e.target.value
+    }, 300)
   }
 }
 </script>
 <style>
 .container {
   padding: 0.5em 0.2em;
+}
+textarea {
+  resize: none;
 }
 </style>

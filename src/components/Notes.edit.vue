@@ -4,7 +4,7 @@
       <div class="header">
         <span class="title">
           <h3>
-            <editable :content.sync="title"></editable>
+            <editable :content.sync="title" lines="single"></editable>
             <button
               @click="saveContent({title, desc, content})"
               class="btn btn-outline-secondary right">
@@ -12,15 +12,12 @@
             </button>
           </h3>
         </span>
-        <span>
-
-        </span>
       </div>
       <div class="desc">
-        <editable :content.sync="desc"></editable>
+        <editable :content.sync="desc" lines="single"></editable>
       </div>
       <div class="">
-        <editable :content.sync="content"></editable>
+        <editable :content.sync="content" lines="multiple"></editable>
       </div>
     </div>
    </div>

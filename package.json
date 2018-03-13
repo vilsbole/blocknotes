@@ -17,6 +17,8 @@
     "axios": "^0.17.1",
     "blockstack": "^0.15.1",
     "lodash": "^4.17.5",
+    "lodash.debounce": "^4.0.8",
+    "marked": "^0.3.17",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

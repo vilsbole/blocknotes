@@ -1,36 +1,49 @@
 <template>
   <div class="notes-list-container">
     <div class="header content">
-      <h3 class="float-left"> {{ msg.title }}</h3>
+      <h3 class="float-left">{{ title }}</h3>
       <router-link :to="`/notes/${notesId}/edit`"
         class="btn btn-outline-secondary right">
         Edit
       </router-link>
     </div>
+    <div class="desc">
+      <div v-html="compiled(desc)"></div>
+    </div>
     <div class="content">
-      <div v-html="msg.content">
-      </div>
+      <div v-html="compiled(content)"></div>
     </div>
   </div>
-
 </template>
 
 <script>
-import NoteService from '../services/notes.service'
+import Marked from 'marked'
+import NoteService from '@/services/notes.service'
 
 export default {
   name: 'NotesShow',
   props: [ 'notesId' ],
   data () {
+    const msg = NoteService.get(this.notesId)
     return {
-      msg: NoteService.get(this.notesId)
+      title: msg.title,
+      desc: msg.desc,
+      content: msg.content
     }
   },
   watch: {
     notesId: function (newVal, oldVal) {
-      this.msg = NoteService.get(newVal)
+      const msg = NoteService.get(newVal)
+      this.title = msg.title
+      this.desc = msg.desc
+      this.content = msg.content
     }
   },
+  methods: {
+    compiled (raw) {
+      return Marked(raw, { sanitize: true })
+    }
+  }
 }
 </script>
 
