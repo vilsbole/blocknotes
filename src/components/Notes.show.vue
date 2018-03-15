@@ -1,9 +1,10 @@
 <template>
-  <div class="notes-list-container">
-    <div class="header content">
-      <h3 class="float-left">{{ title }}</h3>
-      <router-link :to="`/notes/${notesId}/edit`"
-        class="btn btn-outline-secondary right">
+  <div class="notes-show-container">
+    <div class="header">
+      <div v-html="compiled(title)"></div>
+      <router-link
+        class="btn btn-outline-secondary float-right"
+        :to="`/notes/${notesId}/edit`">
         Edit
       </router-link>
     </div>
@@ -48,21 +49,17 @@ export default {
 </script>
 
 <style scoped>
-  .notes-list-container {
+  .notes-show-container {
     position: relative;
-  }
-  .content{
-    padding: 20px;
-    height: 100%;
-    background-color: #fff;
+    padding: 2em;
   }
   .header {
     margin: 0.5em 0;
     height: 3em;
   }
-  .right {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+  .content {
+    /* padding: 20px; */
+    height: 100%;
+    background-color: #fff;
   }
 </style>
