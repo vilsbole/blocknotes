@@ -1,8 +1,7 @@
 <template>
   <div class="register-container">
     <div class="centered-content">
-      <div
-        @click="signIn"
+      <div @click="signIn"
         class="btn btn-primary btn-lg">
         Sign In with Blockstack
       </div>
@@ -10,7 +9,7 @@
         <div style="padding: 10px 0px">
           or
         </div>
-        <a @click="signUp">
+        <a href="https://onename.com/" target='_blank'>
           create an blockstack id
         </a>
       </div>
@@ -25,9 +24,6 @@ export default {
   name: 'Register',
   methods: {
     signIn: Auth.signIn,
-    signUp: () => {
-      console.log('sign up')
-    }
   }
 }
 </script>

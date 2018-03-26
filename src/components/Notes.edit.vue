@@ -2,6 +2,10 @@
    <div class="note-container">
     <div class="text-muted text-center">
       <small>{{ dataNote._updated | humanReadable }}</small>
+      <small
+        class="btn btn-link"
+        style="font-size: 80%"
+        @click="deleteNote(noteId)">delete</small>
     </div>
     <quill-editor
       v-model="displayedNote"
@@ -73,7 +77,7 @@ export default {
     },
 
     updateNote: _debounce(function (quill) {
-      NotesService.update({
+      return NotesService.createOrUpdate({
         ...this.dataNote,
         title: this.extractTitle(quill),
         content: this.extractBody(quill.root.innerHTML)

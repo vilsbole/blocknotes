@@ -5,10 +5,14 @@
 }
 
 .ql-editor.ql-blank {
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: bold;
+  font-style: normal;
 }
+
 .ql-editor.ql-blank::before { /* Chrome/Opera/Safari */
+  font-size: 2rem;
+  font-weight: bold;
   font-style: normal;
 }
 

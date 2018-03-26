@@ -22,7 +22,7 @@ Vue.filter('truncate', function (value) {
 })
 
 Vue.filter('since', function (value) {
-  const date = new Date(value * 1000)
+  const date = new Date(value)
   return distanceInWordsToNow(date)
     .replace('about', '')
     .replace('less than a', '0')
@@ -33,7 +33,7 @@ Vue.filter('since', function (value) {
 
 Vue.filter('humanReadable', function (value) {
   if (!value) { return }
-  const date = new Date(value * 1000)
+  const date = new Date(value)
   return format(date, 'DD MMMM YYYY [at] HH:mm')
 })
 

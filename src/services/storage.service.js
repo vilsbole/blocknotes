@@ -16,7 +16,7 @@ export default function createBlockstackDriver (config = {}) {
   })
 
   return {
-    getItem: async (key, options) => {
+    async getItem (key, options) {
       const result = await blockstack.getFile(
         replacer(key),
         useOptions(options)

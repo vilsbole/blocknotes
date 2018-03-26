@@ -1,11 +1,10 @@
 import merge from 'lodash.merge'
 import shortid from 'shortid'
-import format from 'date-fns/format'
 
 export default class Item {
   constructor (payload) {
-    this._updated = format(new Date(), 'X')
-    this._created = payload._created ? payload._created : format(new Date(), 'X')
+    this._updated = new Date()
+    this._created = payload._created ? payload._created : new Date()
     this.id = payload.id ? payload.id : shortid.generate()
 
     /* deep copy of payload to object properties */
@@ -13,6 +12,6 @@ export default class Item {
   }
 
   updateTime () {
-    this._updated = format(new Date(), 'X')
+    this._updated = new Date()
   }
 }

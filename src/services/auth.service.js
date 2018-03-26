@@ -32,7 +32,7 @@ export const Auth = {
     blockstack.signUserOut(defaultPath)
   },
   signIn: () => {
-    const redirectURI = `${window.location.origin}/notes/2`
+    const redirectURI = `${window.location.origin}/notes`
     const manifestURI = `${window.location.origin}/manifest.json`
     return blockstack.redirectToSignIn(
       redirectURI,

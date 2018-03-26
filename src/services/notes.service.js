@@ -1,7 +1,17 @@
-
 import { isEqual, filter } from 'lodash'
 import Collection from '@/services/multiFileCollection.service'
 import storage from '@/services/storage.service'
+
+/* Check if object needs to be updated */
+function hasChanged (arr, newObject) {
+  const index = arr.findIndex((n) => n.id === newObject.id)
+  return !isEqual(arr[index], newObject)
+}
+
+function updateLocalObject (arr, newObject) {
+  const index = arr.findIndex((n) => n.id === newObject.id)
+  arr.splice(index, 1, newObject)
+}
 
 export const NotesStorage = {
   notes: []
@@ -50,13 +60,18 @@ export const NotesService = {
 
   async update (content) {
     const notes = NotesStorage.notes
-    const id = content.id
-    const index = notes.findIndex((n) => n.id === id)
-    /* Avoid extra call and exit if nothing has changed */
-    if (isEqual(notes[index], content)) return
-    /* Otherwise update local and remote */
-    notes.splice(index, 1, content)
+    if (!hasChanged(notes, content)) return
+    content._updated = new Date()
+    updateLocalObject(notes, content)
     return Store.updateItem(content)
+  },
+
+  async createOrUpdate (content) {
+    const notes = NotesStorage.notes
+    if (!hasChanged(notes, content)) return
+    content._updated = new Date()
+    updateLocalObject(notes, content)
+    return Store.createOrUpdate(content)
   },
 
   async delete (id) {

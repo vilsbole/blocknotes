@@ -3,7 +3,7 @@
     <div class="notes-preview-container list-group list-group-flush">
       <router-link
         class="list-group-item list-group-item-action flex-column align-items-start"
-        v-for="note in notes"
+        v-for="note in sortedNotes"
         :to="`/notes/${note.id}`"
         :key="note.id"
         tag="a"
@@ -33,6 +33,7 @@
 <script>
 import Marked from 'marked'
 import NotesService from '@/services/notes.service'
+import { compareDesc } from 'date-fns'
 
 export default {
   name: 'NotesList',
@@ -42,12 +43,18 @@ export default {
       lines: 2
     }
   },
+  computed: {
+    sortedNotes () {
+      const sortByUpdate = (a, b) => compareDesc(a._updated, b._updated)
+      return this.notes.slice(0).sort(sortByUpdate)
+    }
+  },
   methods: {
     compiled (raw) {
       return raw ? Marked(raw) : ''
     },
     createNewNote () {
-      let tmp = NotesService.createTemp()
+      const tmp = NotesService.createTemp()
       this.$router.push({ path: `/notes/${tmp.id}` })
     }
   }

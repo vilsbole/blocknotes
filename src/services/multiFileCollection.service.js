@@ -8,6 +8,10 @@ export default class MultiFileCollectionService {
     this.storage = storage
   }
 
+  getItemPath (id) {
+    return `${this.type}/${id}`
+  }
+
   async getManifest () {
     try {
       const result = await this.storage.getItem(this.type)
@@ -23,10 +27,6 @@ export default class MultiFileCollectionService {
     } catch (e) {
       console.error(e)
     }
-  }
-
-  getItemPath (id) {
-    return `${this.type}/${id}`
   }
 
   async getItemsFromIds (ids = []) {
@@ -50,6 +50,14 @@ export default class MultiFileCollectionService {
     }
   }
 
+  async resetManifest () {
+    try {
+      return this.storage.setItem(this.type, [])
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   async addItemToManifest (id) {
     try {
       const manifest = await this.getManifest()
@@ -61,20 +69,21 @@ export default class MultiFileCollectionService {
     }
   }
 
-  async resetManifest () {
-    try {
-      return this.storage.setItem(this.type, [])
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
   async removeItemFromManifest (id) {
     try {
       const manifest = await this.getManifest()
       const update = manifest.filter(key => key !== id)
       await this.storage.setItem(this.type, update)
       return update
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  async existsInManifest (id) {
+    try {
+      const manifest = await this.getManifest()
+      return manifest.find(ref => ref === id)
     } catch (e) {
       console.error(e)
     }
@@ -93,6 +102,10 @@ export default class MultiFileCollectionService {
     }
   }
 
+  createTemp (payload) {
+    return new Item(payload)
+  }
+
   async createItem (payload) {
     const newItem = new Item(payload)
 
@@ -105,8 +118,12 @@ export default class MultiFileCollectionService {
     }
   }
 
-  createTemp (payload) {
-    return new Item(payload)
+  async createOrUpdate (payload) {
+    if (await this.existsInManifest(payload.id)) {
+      return this.updateItem(payload)
+    } else {
+      return this.createItem(payload)
+    }
   }
 
   async updateItem (payload) {

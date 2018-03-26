@@ -12,10 +12,16 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/notes',
       name: 'home',
       component: Home,
+      meta: { requiresAuth: true },
       children: [
+        // {
+        //   path: '/notes',
+        //   component: '<div>hello</div>',
+        //   meta: { requiresAuth: true },
+        // },
         {
           path: '/notes/:noteId',
           component: NotesEdit,
@@ -29,28 +35,24 @@ const router = new Router({
       component: Register,
     }, {
       path: '*',
-      redirect: '/'
+      redirect: '/notes'
     }
   ]
 })
 
-router.beforeResolve((to, from, next) => {
-  if (to.meta.requiresAuth) {
-    if (Auth.isSignedIn()) {
-      const user = Auth.fetchProfile()
-      Auth.updateProfile(user)
-      next()
-    } else if (Auth.isSignInPending()) {
-      Auth.handlePending()
-        .then((userData) => {
-          Auth.updateProfile(userData)
-        })
-        .then(next)
-    } else {
-      next('/auth')
-    }
-  } else {
+router.beforeResolve(async (to, from, next) => {
+  if (!to.meta.requiresAuth) { next() }
+
+  if (Auth.isSignedIn()) {
+    const user = Auth.fetchProfile()
+    Auth.updateProfile(user)
     next()
+  } else if (Auth.isSignInPending()) {
+    const user = await Auth.handlePending()
+    Auth.updateProfile(user)
+    next()
+  } else {
+    next('/auth')
   }
 })
 

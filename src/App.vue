@@ -15,6 +15,7 @@ export default {
   components: {
     Navbar
   },
+
   data () {
     return {
       user: User,
