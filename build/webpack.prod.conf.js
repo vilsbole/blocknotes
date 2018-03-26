@@ -38,6 +38,10 @@ const webpackConfig = merge(baseWebpackConfig, {
       uglifyOptions: {
         compress: {
           warnings: false
+        },
+        mangle: {
+          /* Reserved by blockstack ie. https://github.com/blockstack/blockstack.js */
+          reserved: ['BigInteger', 'ECPair', 'Point']
         }
       },
       sourceMap: config.build.productionSourceMap,
