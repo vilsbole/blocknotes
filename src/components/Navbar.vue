@@ -3,14 +3,21 @@
     <router-link class="navbar-brand brand" to="/">
       Blocknotes
     </router-link>
-    <div v-show="isAuth" class="dropdown form-inline float-right">
-      <span>{{ userName }}</span>
-      <button
-        @click="signOut"
-        class="btn btn-link"
-        type="button">
-        Logout
-      </button>
+    <div v-show="isAuth" class="dropdown" >
+      <div
+        class="dropdown-toggle btn btn-link"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        id="dropdownMenuButton">
+        {{ userName }}
+      </div>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item"
+          @click="signOut">
+          Logout
+        </a>
+      </div>
     </div>
   </nav>
 </template>

@@ -4,7 +4,6 @@ import Router from 'vue-router'
 import Home from '../components/Home.vue'
 import Register from '../components/Register.vue'
 import NotesEdit from '../components/Notes.edit'
-import NotesShow from '../components/Notes.show'
 import Auth from '@/services/auth.service'
 
 Vue.use(Router)
@@ -18,21 +17,9 @@ const router = new Router({
       component: Home,
       children: [
         {
-          path: '/notes/create',
+          path: '/notes/:noteId',
           component: NotesEdit,
           meta: { requiresAuth: true },
-        },
-        {
-          path: '/notes/:notesId',
-          component: NotesShow,
-          meta: { requiresAuth: true },
-          props: true
-
-        },
-        {
-          path: '/notes/:notesId/edit',
-          meta: { requiresAuth: true },
-          component: NotesEdit,
           props: true
         }
       ]
@@ -56,7 +43,6 @@ router.beforeResolve((to, from, next) => {
     } else if (Auth.isSignInPending()) {
       Auth.handlePending()
         .then((userData) => {
-          console.log('handle pending', userData)
           Auth.updateProfile(userData)
         })
         .then(next)

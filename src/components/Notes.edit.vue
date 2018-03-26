@@ -1,52 +1,105 @@
 <template>
    <div class="note-container">
-    <div class="content">
-      <div class="header">
-        <span class="title">
-          <h3>
-            <editable :content.sync="title" lines="single"></editable>
-            <button
-              @click="saveContent({title, desc, content})"
-              class="btn btn-outline-secondary right">
-              Save
-            </button>
-          </h3>
-        </span>
-      </div>
-      <div class="desc">
-        <editable :content.sync="desc" lines="single"></editable>
-      </div>
-      <div class="">
-        <editable :content.sync="content" lines="multiple"></editable>
-      </div>
+    <div class="text-muted text-center">
+      <small>{{ dataNote._updated | humanReadable }}</small>
     </div>
+    <quill-editor
+      v-model="displayedNote"
+      :options="quillOptions"
+      @ready="onEditorReady($event)">
+    </quill-editor>
    </div>
  </template>
 
 <script>
+import MarkdownShortcuts from 'quill-markdown-shortcuts-for-vue-quill-editor'
+import _debounce from 'lodash.debounce'
+import { Quill, quillEditor } from 'vue-quill-editor'
+import 'quill/dist/quill.bubble.css'
 
-import NoteService from '../services/notes.service'
-import Editable from './Editable'
+import { NotesStorage, NotesService } from '@/services/notes.service'
 
 export default {
   name: 'NotesEdit',
-  props: [ 'notesId' ],
-  data () {
-    const note = NoteService.get(this.notesId)
-    return {
-      title: note.title || 'Title',
-      desc: note.desc || 'Enter your description',
-      content: note.content || 'Write your note',
+  props: [ 'noteId' ],
+  components: {
+    quillEditor
+  },
+  created () {
+    /* Allow Quill to interpret and render markdown while typing */
+    Quill.register('modules/markdownShortcuts', MarkdownShortcuts)
+  },
+  watch: {
+    noteId: {
+      /* Trigger handler on create: https://forum.vuejs.org/t/watchers-not-triggered-on-initialization/12475 */
+      immediate: true,
+      async handler (newId) {
+        let note = await NotesService.get(newId)
+        this.dataNote = note
+        this.displayedNote = note.title.concat(note.content)
+      }
     }
   },
-  components: {
-    Editable
+  data () {
+    return {
+      dataNote: {},
+      displayedNote: '',
+      quillOptions: {
+        theme: 'bubble',
+        toolbar: false,
+        modules: {
+          markdownShortcuts: {},
+        },
+        placeholder: 'Untitled'
+      },
+    }
   },
   methods: {
-    saveContent: (note) => {
-      // You have the content to save
-      NoteService.create(note)
-    }
+    /*
+      On Quill initialisation, set listeners:
+      - that formats the title
+      - deletes item when text is empty
+      - that updates local and remote on change
+    */
+    onEditorReady (quill) {
+      quill.on('text-change', (delta, oldDelta, source) => {
+        quill.formatLine(1, 2, 'header', 1)
+        if (source === 'user' && quill.root.innerText.length < 2) {
+          this.deleteNote(this.noteId)
+        } else if (source === 'user') {
+          this.updateNote(quill)
+        }
+      })
+    },
+
+    updateNote: _debounce(function (quill) {
+      NotesService.update({
+        ...this.dataNote,
+        title: this.extractTitle(quill),
+        content: this.extractBody(quill.root.innerHTML)
+      })
+    }, 500),
+
+    deleteNote (noteId) {
+      return NotesService.delete(noteId)
+        .then(() => {
+          const { id } = NotesStorage.notes[0]
+          this.$router.push(`/notes/${id}`)
+        })
+    },
+
+    /*
+     Remove first line from content to create the body.
+     We can't rely on parsing Bolts because <ul> tag disapears
+    */
+    extractBody (html) {
+      return html.replace(/^(<h1>.*?<\/h1>)/, '')
+    },
+
+    extractTitle (quill) {
+      const firstBlot = quill.getLine(0)[0]
+      return firstBlot.domNode.innerText
+    },
   }
 }
 </script>
@@ -55,31 +108,7 @@ export default {
 <style scoped>
   .note-container{
     height: 100%;
-    display: flex;
-    flex-direction: column;
     background-color: #fff;
-    position: relative;
+    padding: 0.5em;
   }
-  .editor {
-    flex: 1;
-  }
-  .save {
-    margin: 1.5em 1em;
-  }
-  .content{
-    padding: 20px;
-  }
-  .header {
-    margin: 0.5em 0;
-    height: 3em;
-  }
-  .title {
-    width: 70%;
-  }
-  .right {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  }
-
 </style>

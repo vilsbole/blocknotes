@@ -1,22 +1,24 @@
 <template>
-<div id="app">
-    <navbar :user-name="userName" :is-auth="isAuth"/>
-    <router-view></router-view>
-</div>
+  <div id="app">
+    <navbar :user-name="user.username" :is-auth="user.isAuth"/>
+    <router-view class="main-container"></router-view>
+  </div>
 </template>
 
 <script>
-import Auth from '@/services/auth.service'
+import { User } from '@/services/auth.service'
 import Navbar from '@/components/Navbar'
+import './app.scss'
 
 export default {
   name: 'App',
   components: {
     Navbar
   },
-  computed: {
-    isAuth: Auth.isSignedIn,
-    userName () { return Auth.username }
+  data () {
+    return {
+      user: User,
+    }
   }
 }
 </script>
@@ -32,5 +34,9 @@ html, body, #app {
   display: flex;
   flex-direction: column;
   justify-content: start;
+  overflow: hidden;
+}
+.main-container {
+  flex: 1
 }
 </style>

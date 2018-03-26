@@ -1,78 +1,69 @@
-var _ = require('lodash')
 
-const NOTES = [
-  {
-    id: '2',
-    title: '# Welcome to Notes App 1',
-    desc: 'With Notes App 1, you own your own data',
-    content: `
-    <div>
-      With Notes App 1, you own your own data. If you decide you want to switch to a new app, you can easily do so.
-    </div>
-    <div>
-      If you run into any problems using the app, please email muneeb@blockstack.org.
-    </div>
-    `
-  },
-  {
-    id: '3',
-    title: '# Where does it come from?',
-    desc: 'Is “maximalism” stealth centralization?',
-    content: `
-      <div>
-        Is “maximalism” stealth centralization?
-        Is privacy a fundamental right or a strategy? Is it an effective strategy? (Wegner)
-      </div>
-      <div>
-        “New technology grows the space of the possible.” - Wegner
-      </div>
-      <div>
-        “People need a right to be forgotten to feel secure in their ideas.” - Snowden
-      </div>
-      <div>
-        Increasing “argument surface” may decrease social scalability. (Szabo)
-      </div>`
-  }, {
-    id: '4',
-    title: '# Bitcoin: A Peer-to-Peer Electronic Cash System',
-    desc: 'A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a',
-    content: "A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending. We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers. The network itself requires minimal structure. Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone."
-  }, {
-    id: '5',
-    'title': '# 4 DAPP rules (Shea)',
-    'desc': 'Bring your own device, Bring your own ID...',
-    'content': `
-      - Runs On Your Device
-      - Bring Your Own ID
-      - Bring Your Own Data
-      - Bring your own assets
-    `
-  }
-]
+import { isEqual, filter } from 'lodash'
+import Collection from '@/services/multiFileCollection.service'
+import storage from '@/services/storage.service'
 
-const NotesService = {
-  get: (id) => {
-    if (!id) return NOTES
-    return _.find(NOTES, {'id': id})
+export const NotesStorage = {
+  notes: []
+}
+
+let Store
+export const NotesService = {
+  init (userId) {
+    Store = new Collection({
+      type: 'testnotes',
+      storage: storage(),
+      userID: userId
+    })
   },
 
-  create: (content) => {
-    var id = _.last(NOTES).id + 1
-    var note = {
-      'id': id,
-      'title': 'New Note',
-      'content': content
+  async get (id) {
+    if (typeof id === 'undefined') {
+      throw new Error(`Note service: ${id} is not a valid id`)
     }
-    _.concat(NOTES, note)
+    let note = NotesStorage.notes.find(n => n.id === id)
+    /* Avoid extra call if already in local */
+    if (note) { return note }
+    return Store.getItem(id)
   },
 
-  update: () => {
-
+  async getAll () {
+    const notes = await Store.getItems()
+    NotesStorage.notes = filter(notes)
+    return NotesStorage.notes
   },
 
-  delete: () => {
+  async create (content) {
+    let note = await Store.createItem(content)
+    NotesStorage.notes = [ note, ...NotesStorage.notes ]
+    return note
+  },
 
-  }
+  createTemp () {
+    const note = Store.createTemp({
+      title: '',
+      content: ''
+    })
+    NotesStorage.notes = [ note, ...NotesStorage.notes ]
+    return note
+  },
+
+  async update (content) {
+    const notes = NotesStorage.notes
+    const id = content.id
+    const index = notes.findIndex((n) => n.id === id)
+    /* Avoid extra call and exit if nothing has changed */
+    if (isEqual(notes[index], content)) return
+    /* Otherwise update local and remote */
+    notes.splice(index, 1, content)
+    return Store.updateItem(content)
+  },
+
+  async delete (id) {
+    NotesStorage.notes = filter(NotesStorage.notes, (n) => n.id !== id)
+    return Store.deleteItem(id)
+  },
+
 }
 
 export default NotesService

@@ -1,0 +1,25 @@
+
+// Quill override default font
+.quill-editor .ql-container  {
+  font-family: 'Source Code Pro', monospace !important;
+}
+
+.ql-editor.ql-blank {
+  font-size: 2em;
+  font-weight: bold;
+}
+.ql-editor.ql-blank::before { /* Chrome/Opera/Safari */
+  font-style: normal;
+}
+
+.ql-container h1:first-child {
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+// Overrides on notes-list because the injected html (by marked)
+// doesn't recognise the shadowDom's styling.
+.note-preview > p {
+  margin-bottom: 0;
+}

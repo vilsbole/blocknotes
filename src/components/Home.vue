@@ -1,13 +1,19 @@
 <template>
-  <div class="home-container">
-    <notes-list class="sidebar" :notes="notes"></notes-list>
-    <router-view class="main"></router-view>
+  <div class="row no-gutters">
+    <notes-list
+      class="col-4 col-lg-3 sidebar"
+      :notes="store.notes">
+    </notes-list>
+    <router-view
+      class="col">
+    </router-view>
   </div>
 </template>
 
 <script>
-import NotesList from './Notes.list'
-import NoteService from '../services/notes.service'
+import NotesList from '@/components/Notes.list'
+import { NotesService, NotesStorage } from '@/services/notes.service'
+import { User } from '@/services/auth.service'
 
 export default {
   name: 'Home',
@@ -16,24 +22,21 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Blockstack Notes',
-      notes: NoteService.get()
+      store: NotesStorage
     }
+  },
+  beforeCreate () {
+    NotesService.init(User.username)
+    NotesService.getAll()
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.home-container {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-}
+
 .sidebar {
-  flex: 1;
-}
-.main {
-  flex: 3;
+  /* overflow-y: auto; */
+  /* height: 90vh; */
 }
 </style>

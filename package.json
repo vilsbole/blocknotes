@@ -16,10 +16,15 @@
   "dependencies": {
     "axios": "^0.17.1",
     "blockstack": "^0.15.1",
+    "date-fns": "^1.29.0",
     "lodash": "^4.17.5",
     "lodash.debounce": "^4.0.8",
     "marked": "^0.3.17",
+    "quill-markdown-shortcuts-for-vue-quill-editor": "github:aral/quill-markdown-shortcuts-for-vue-quill-editor",
+    "shortid": "^2.2.8",
     "vue": "^2.5.2",
+    "vue-logger": "^0.0.3",
+    "vue-quill-editor": "^3.0.5",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

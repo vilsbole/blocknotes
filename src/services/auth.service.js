@@ -1,15 +1,13 @@
 import * as blockstack from 'blockstack'
 
-const USER = {}
+export const User = {
+  isAuth: false,
+  username: '',
+  profile: {}
+}
 
 /* Bridge for blockstack api */
-const auth = {
-  get username () {
-    return USER.username
-  },
-  set username (name) {
-    USER.username = name
-  },
+export const Auth = {
   isSignedIn: () => {
     return blockstack.isUserSignedIn()
   },
@@ -21,14 +19,16 @@ const auth = {
   },
   updateProfile: (profile) => {
     const person = new blockstack.Person(profile)
-    auth.username = person._profile.username
+    User.isAuth = true
+    User.username = person._profile.username
   },
   fetchProfile: () => {
     return blockstack.loadUserData()
   },
   signOut: () => {
     const defaultPath = `${window.location.origin}/auth`
-    auth.username = null
+    User.isAuth = false
+    User.username = null
     blockstack.signUserOut(defaultPath)
   },
   signIn: () => {
@@ -41,4 +41,4 @@ const auth = {
   }
 }
 
-export default auth
+export default Auth
