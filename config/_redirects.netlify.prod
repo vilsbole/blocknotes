@@ -1,0 +1,3 @@
+# To avoid netlify 404 page, redirect all requests to SPA
+
+/*    /index.html   200
